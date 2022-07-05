@@ -8,27 +8,15 @@ const Toggle = () => {
 
 	const [darkMode, setDarkMode] = useRecoilState(DarkAtom);
 
-	const check = () => {
-		if (localStorage.theme == "dark") {
-			setDarkMode(true);
-		} else {
-			setDarkMode(false);
-		}
-	};
-
 	const mode = () => {
 		if (darkMode) {
-			document.documentElement.classList.add("dark");
 			localStorage.theme = "dark";
+			document.documentElement.classList.add("dark");
 		} else {
-			document.documentElement.classList.remove("dark");
 			localStorage.theme = "light";
+			document.documentElement.classList.remove("dark");
 		}
 	};
-
-	useEffect(() => {
-		check();
-	}, []);
 
 	useEffect(() => {
 		mode();

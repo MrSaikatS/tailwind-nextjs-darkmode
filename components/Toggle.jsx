@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useRecoilState } from "recoil";
 import { DarkModeSwitch } from "react-toggle-dark-mode";
 import DarkAtom from "../atoms/DarkAtom";
@@ -8,18 +8,29 @@ const Toggle = () => {
 
 	const [darkMode, setDarkMode] = useRecoilState(DarkAtom);
 
-	const mode = () => {
-		if (darkMode) {
-			localStorage.theme = "dark";
-			document.documentElement.classList.add("dark");
-		} else {
-			localStorage.theme = "light";
-			document.documentElement.classList.remove("dark");
-		}
-	};
+	const firstCheck = useRef(true);
 
 	useEffect(() => {
-		mode();
+		if (firstCheck.current) {
+			firstCheck.current = false;
+			if (localStorage.theme == "dark") {
+				setDarkMode(true);
+			} else {
+				setDarkMode(false);
+			}
+			console.log("1st Effect");
+		}
+	}, []);
+
+	useEffect(() => {
+		if (darkMode) {
+			document.documentElement.classList.add("dark");
+			localStorage.theme = "dark";
+		} else {
+			document.documentElement.classList.remove("dark");
+			localStorage.theme = "light";
+		}
+		console.log("2nd Effect");
 	}, [darkMode]);
 
 	return (

@@ -1,26 +1,7 @@
 import Link from "next/link";
 import Toggle from "./Toggle";
-import { useEffect } from "react";
-import { useRecoilState } from "recoil";
-import DarkAtom from "../atoms/DarkAtom";
 
 const Nav = () => {
-	const [darkMode, setDarkMode] = useRecoilState(DarkAtom);
-
-	const check = () => {
-		if (localStorage.theme === "dark") {
-			console.log("True");
-			setDarkMode(true);
-		} else {
-			console.log("False");
-			setDarkMode(false);
-		}
-	};
-
-	useEffect(() => {
-		check();
-	}, [darkMode]);
-
 	return (
 		<>
 			<div className='grid grid-flow-col place-content-between place-items-center px-8 py-3 text-2xl'>
